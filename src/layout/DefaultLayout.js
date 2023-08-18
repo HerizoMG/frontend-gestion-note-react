@@ -1,8 +1,6 @@
 import React from 'react'
 import { AppContent, AppSidebar, AppFooter, AppHeader } from '../components/index'
-import { ClientProvider } from '../context/ClientProvider'
-import { VoitureProvider } from '../context/VoitureProvider'
-import { AchatProvider } from '../context/AchatProvider'
+import { EleveProvider } from '../context/EleveProvider'
 
 const DefaultLayout = () => {
   return (
@@ -11,13 +9,9 @@ const DefaultLayout = () => {
       <div className="wrapper d-flex flex-column min-vh-100 bg-light">
         <AppHeader />
         <div className="body flex-grow-1 px-3">
-          <AchatProvider>
-            <VoitureProvider>
-              <ClientProvider>
-                <AppContent />
-              </ClientProvider>
-            </VoitureProvider>
-          </AchatProvider>
+          <EleveProvider>
+            <AppContent />
+          </EleveProvider>
         </div>
       </div>
     </div>

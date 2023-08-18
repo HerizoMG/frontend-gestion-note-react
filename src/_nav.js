@@ -1,7 +1,7 @@
 import React from 'react'
 import CIcon from '@coreui/icons-react'
-import { cilCart, cilPeople, cilSpeedometer } from '@coreui/icons'
-import { CNavItem } from '@coreui/react'
+import { cilCart, cilPeople, cilPuzzle, cilSpeedometer } from '@coreui/icons'
+import { CNavGroup, CNavItem } from '@coreui/react'
 import { cilCarAlt } from '@coreui/icons/js/free/cil-car-alt'
 
 const _nav = [
@@ -13,99 +13,110 @@ const _nav = [
   },
   {
     component: CNavItem,
-    name: 'Client',
-    to: '/client',
+    name: 'Elèves',
+    to: '/eleve',
     icon: <CIcon icon={cilPeople} customClassName="nav-icon" />,
   },
   {
-    component: CNavItem,
-    name: 'Voitures',
-    to: '/voitures',
+    component: CNavGroup,
+    name: 'Classe',
+    to: '/classes',
     icon: <CIcon icon={cilCarAlt} customClassName="nav-icon" />,
+    items: [
+      {
+        component: CNavItem,
+        name: 'Seconde',
+        to: '/voitures/seconde',
+      },
+      {
+        component: CNavGroup,
+        name: 'Premiere',
+        to: 'premiere',
+        items: [
+          {
+            component: CNavItem,
+            name: 'Premiere_L',
+            to: '/voitures/premiereL',
+          },
+          {
+            component: CNavItem,
+            name: 'Premiere_S',
+            to: '/voitures/premiereS',
+          },
+        ],
+      },
+      {
+        component: CNavGroup,
+        name: 'Terminale',
+        to: 'terminale',
+        items: [
+          {
+            component: CNavItem,
+            name: 'Terminale_A1',
+            to: '/voitures/terminaleA1',
+          },
+          {
+            component: CNavItem,
+            name: 'Terminale_A2',
+            to: '/voitures/terminaleA2',
+          },
+          {
+            component: CNavItem,
+            name: 'Terminale_C',
+            to: '/voitures/terminaleC',
+          },
+          {
+            component: CNavItem,
+            name: 'Terminale_D',
+            to: '/voitures/terminaleD',
+          },
+          {
+            component: CNavItem,
+            name: 'Terminale_L',
+            to: '/voitures/terminaleL',
+          },
+          {
+            component: CNavItem,
+            name: 'Terminale_S',
+            to: '/voitures/terminaleS',
+          },
+          {
+            component: CNavItem,
+            name: 'Terminale_OSE',
+            to: '/voitures/terminaleOSE',
+          },
+        ],
+      },
+    ],
   },
-  // {
-  //   component: CNavGroup,
-  //   name: 'Base',
-  //   to: '/base',
-  //   icon: <CIcon icon={cilPuzzle} customClassName="nav-icon" />,
-  //   items: [
-  //     {
-  //       component: CNavItem,
-  //       name: 'Accordion',
-  //       to: '/base/accordion',
-  //     },
-  //     {
-  //       component: CNavItem,
-  //       name: 'Breadcrumb',
-  //       to: '/base/breadcrumbs',
-  //     },
-  //     {
-  //       component: CNavItem,
-  //       name: 'Cards',
-  //       to: '/base/cards',
-  //     },
-  //     {
-  //       component: CNavItem,
-  //       name: 'Carousel',
-  //       to: '/base/carousels',
-  //     },
-  //     {
-  //       component: CNavItem,
-  //       name: 'Collapse',
-  //       to: '/base/collapses',
-  //     },
-  //     {
-  //       component: CNavItem,
-  //       name: 'List group',
-  //       to: '/base/list-groups',
-  //     },
-  //     {
-  //       component: CNavItem,
-  //       name: 'Navs & Tabs',
-  //       to: '/base/navs',
-  //     },
-  //     {
-  //       component: CNavItem,
-  //       name: 'Pagination',
-  //       to: '/base/paginations',
-  //     },
-  //     {
-  //       component: CNavItem,
-  //       name: 'Placeholders',
-  //       to: '/base/placeholders',
-  //     },
-  //     {
-  //       component: CNavItem,
-  //       name: 'Popovers',
-  //       to: '/base/popovers',
-  //     },
-  //     {
-  //       component: CNavItem,
-  //       name: 'Progress',
-  //       to: '/base/progress',
-  //     },
-  //     {
-  //       component: CNavItem,
-  //       name: 'Spinners',
-  //       to: '/base/spinners',
-  //     },
-  //     {
-  //       component: CNavItem,
-  //       name: 'Tables',
-  //       to: '/base/tables',
-  //     },
-  //     {
-  //       component: CNavItem,
-  //       name: 'Tooltips',
-  //       to: '/base/tooltips',
-  //     },
-  //   ],
-  // },
+  {
+    component: CNavGroup,
+    name: 'Matiere',
+    to: '/matiere',
+    icon: <CIcon icon={cilSpeedometer} customClassName="nav-icon" />,
+    items: [
+      {
+        component: CNavItem,
+        name: 'Seconde',
+        to: '/matiere/seconde',
+      },
+      {
+        component: CNavItem,
+        name: 'Premiere',
+        to: '/matiere/premiere',
+      },
+      {
+        component: CNavItem,
+        name: 'Terminale',
+        to: '/matiere/terminale',
+      },
+    ],
+  },
   {
     component: CNavItem,
-    name: 'Achat',
-    to: '/achat',
-    icon: <CIcon icon={cilCart} customClassName="nav-icon" />,
+    name: 'Note',
+    to: '/dashboard',
+    icon: <CIcon icon={cilSpeedometer} customClassName="nav-icon" />,
   },
 ]
 

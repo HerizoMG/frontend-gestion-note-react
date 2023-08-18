@@ -184,7 +184,7 @@ export const VerticallyCentered = () => {
               name="idcategorie"
               value={formData.marque.designmarque}
               onChange={handleMarInputChange}
-              label="Marque"
+              label="Terminale_A1"
               aria-label="default input example"
             />
           ) : (
@@ -192,7 +192,7 @@ export const VerticallyCentered = () => {
               name="idmarque"
               value={formData.idmarque}
               onChange={handleMarInputChange}
-              label="Marque"
+              label="Terminale_A1"
               aria-label="Default select example"
             >
               <option>Choisissez une marque</option>

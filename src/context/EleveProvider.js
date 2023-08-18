@@ -7,17 +7,16 @@ import { useVoitureContext } from './VoitureProvider'
 const ClientContext = createContext()
 
 // eslint-disable-next-line react/prop-types
-export const ClientProvider = ({ children }) => {
+export const EleveProvider = ({ children }) => {
   const [clientData, setClientData] = useState([])
   const [records, setRecords] = useState([])
 
   useEffect(() => {
-    fetchAllClient()
+    fetchAllEleve()
   }, [])
-
-  const fetchAllClient = () => {
+  const fetchAllEleve = () => {
     axios
-      .get('https://localhost:7001/api/Clients')
+      .get('https://localhost:7076/Etudiant')
       .then((response) => {
         setClientData(response.data)
         setRecords(response.data)
@@ -27,25 +26,25 @@ export const ClientProvider = ({ children }) => {
       })
   }
 
-  const updateClient = (editedClientId, editedValues) => {
+  const updateClient = (id, editedValues) => {
     axios
-      .put(`https://localhost:7001/api/Clients/${editedClientId}`, editedValues)
+      .put(`https://localhost:7076/Etudiant/update?id=${id}`, editedValues)
       .then((response) => {
-        console.log('Client data updated:', response.data)
-        fetchAllClient()
+        console.log('Eleve data updated:', response.data)
+        fetchAllEleve()
         Swal.fire('Modifié', 'Modification avec succès', 'success')
       })
       .catch((error) => {
-        console.error('Error updating client data:', error.message)
+        console.error('Error updating eleve data:', error.message)
       })
   }
 
-  const addClient = (newClient) => {
+  const addClient = (newEleve) => {
     axios
-      .post('https://localhost:7001/api/Clients', newClient)
+      .post('https://localhost:7076/Etudiant/create', newEleve)
       .then((response) => {
-        console.log('New car added:', response.data)
-        fetchAllClient()
+        console.log('New eleve added:', response.data)
+        fetchAllEleve()
         Swal.fire(
           'Ajouté',
           response.data.nom + response.data.prenoms + ' ajouté avec succès',
@@ -53,19 +52,19 @@ export const ClientProvider = ({ children }) => {
         )
       })
       .catch((error) => {
-        console.error('Error adding new car:', error.message)
+        console.error('Error adding new eleve:', error.message)
       })
   }
 
   const deleteClient = (deleteID) => {
     axios
-      .delete(`https://localhost:7001/api/Clients/${deleteID}`)
+      .delete(`https://localhost:7076/Etudiant/${deleteID}`)
       .then((response) => {
-        console.log('Client data updated:', response.data)
-        fetchAllClient()
+        console.log('Eleve data updated:', response.data)
+        fetchAllEleve()
       })
       .catch((error) => {
-        console.error('Error updating client data:', error.message)
+        console.error('Error updating eleve data:', error.message)
       })
   }
 

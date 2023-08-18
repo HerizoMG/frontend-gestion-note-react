@@ -2,9 +2,21 @@ import React from 'react'
 import { Form } from 'react-router-dom'
 
 const Dashboard = React.lazy(() => import('./views/dashboard/Dashboard'))
-const Client = React.lazy(() => import('./views/client/client'))
-const Voiture = React.lazy(() => import('./views/Voiture/Voiture'))
+const Eleve = React.lazy(() => import('./views/eleve/eleve'))
+const Seconde = React.lazy(() => import('./views/Voiture/Seconde'))
 const Achat = React.lazy(() => import('./views/Achat/Achat'))
+const Premiere_L = React.lazy(() => import('./views/Voiture/Premiere_L'))
+const Premiere_S = React.lazy(() => import('./views/Voiture/Premiere_S'))
+const Terminale_A1 = React.lazy(() => import('./views/Voiture/Terminale_A1'))
+const Terminale_A2 = React.lazy(() => import('./views/Voiture/Terminale_A2'))
+const Terminale_C = React.lazy(() => import('./views/Voiture/Terminale_C'))
+const Terminale_D = React.lazy(() => import('./views/Voiture/Terminale_D'))
+const Terminale_L = React.lazy(() => import('./views/Voiture/Terminale_L'))
+const Terminale_S = React.lazy(() => import('./views/Voiture/Terminale_S'))
+const Terminale_OSE = React.lazy(() => import('./views/Voiture/Terminale_OSE'))
+const MatiereSeconde = React.lazy(() => import('./views/matiere/matiereSeconde'))
+const MatierePremiere = React.lazy(() => import('./views/matiere/matierePremiere'))
+const MatiereTerminale = React.lazy(() => import('./views/matiere/matiereTerminale'))
 const Colors = React.lazy(() => import('./views/theme/colors/Colors'))
 const Typography = React.lazy(() => import('./views/theme/typography/Typography'))
 
@@ -56,11 +68,23 @@ const Widgets = React.lazy(() => import('./views/widgets/Widgets'))
 
 const routes = [
   { path: '/', exact: true, name: 'Home' },
-  { path: '/dashboard', name: 'Dashboard', element: Dashboard },
-  { path: '/client', name: 'Client', element: Client },
-  { path: '/voitures', name: 'Voitures', element: Voiture },
-  { path: '/achat', name: 'Achat', element: Achat },
+  { path: '/dashboard', name: 'Dashboard', element: ListGroups },
+  { path: '/eleve', name: 'Eleve', element: Eleve },
+  { path: '/voitures/seconde', name: 'Seconde', element: Seconde },
+  { path: '/voitures/premiereL', name: 'Premiere L', element: Premiere_L },
+  { path: '/voitures/premiereS', name: 'Premiere S', element: Premiere_S },
+  { path: '/voitures/terminaleA1', name: 'Terminale A1', element: Terminale_A1 },
+  { path: '/voitures/terminaleA2', name: 'Terminale A2', element: Terminale_A2 },
+  { path: '/voitures/terminaleC', name: 'Terminale C', element: Terminale_C },
+  { path: '/voitures/terminaleD', name: 'Terminale D', element: Terminale_D },
+  { path: '/voitures/terminaleL', name: 'Terminale L', element: Terminale_L },
+  { path: '/voitures/terminaleS', name: 'Terminale S', element: Terminale_S },
+  { path: '/voitures/terminaleOSE', name: 'Terminale OSE', element: Terminale_OSE },
+  { path: '/matiere/seconde', name: 'Seconde', element: MatiereSeconde },
+  { path: '/matiere/premiere', name: 'Premiere', element: MatierePremiere },
+  { path: '/matiere/terminale', name: 'Terminale', element: MatiereTerminale },
   { path: '/theme', name: 'Theme', element: Colors, exact: true },
+  { path: '/achat', name: 'Achat', element: Achat },
   { path: '/theme/colors', name: 'Colors', element: Colors },
   { path: '/theme/typography', name: 'Typography', element: Typography },
   { path: '/base', name: 'Base', element: Cards, exact: true },
