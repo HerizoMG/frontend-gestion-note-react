@@ -27,7 +27,7 @@ const VerticallyCentered = ({ row }) => {
     idPeriode: row.idPeriode,
     idSerie: row.idSerie,
   })
-  const { updateClient } = useClientContext()
+  const { updateEtudiant } = useClientContext()
   const [select, setSelect] = useState({
     a1: true,
     a2: true,
@@ -39,7 +39,7 @@ const VerticallyCentered = ({ row }) => {
     troncCommun: false,
   })
   const updateClientData = () => {
-    updateClient(editedValues.matricule.toString(), editedValues)
+    updateEtudiant(editedValues.matricule.toString(), editedValues)
   }
 
   const onChangeNiveau = (event) => {
@@ -170,9 +170,7 @@ const VerticallyCentered = ({ row }) => {
               value={editedValues.idSerie}
               onChange={(e) => handleidPeriodeChange(e)}
             >
-              <option disabled={true} selected={true}>
-                Serie
-              </option>
+              <option disabled={true}>Serie</option>
               <option disabled={select.a1} value="1">
                 A1
               </option>
@@ -243,6 +241,8 @@ VerticallyCentered.propTypes = {
 
 const AddClient = () => {
   const [select, setSelect] = useState({
+    _s: true,
+    _l: true,
     a1: true,
     a2: true,
     c: true,
@@ -261,10 +261,10 @@ const AddClient = () => {
     email: '',
     idClasse: 1,
     idPeriode: 1,
-    idSerie: '',
+    idSerie: 1,
   })
 
-  const { addClient } = useClientContext()
+  const { addEtudiant } = useClientContext()
 
   const handleidPeriodeChange = (event) => {
     const { name, value } = event.target
@@ -281,7 +281,7 @@ const AddClient = () => {
     }))
   }
   const addClientData = () => {
-    addClient(formData)
+    addEtudiant(formData)
     // Optionally, you can reset the form after adding a client
     setFormData({
       matricule: '',
@@ -303,6 +303,8 @@ const AddClient = () => {
     }))
     if (value === '1') {
       setSelect({
+        _s: true,
+        _l: true,
         a1: true,
         a2: true,
         c: true,
@@ -316,12 +318,14 @@ const AddClient = () => {
 
     if (value === '2') {
       setSelect({
+        _s: false,
+        _l: false,
         a1: true,
         a2: true,
         c: true,
         d: true,
-        l: false,
-        s: false,
+        l: true,
+        s: true,
         ose: true,
         troncCommun: true,
       })
@@ -329,6 +333,8 @@ const AddClient = () => {
 
     if (value === '3') {
       setSelect({
+        _s: true,
+        _l: true,
         a1: false,
         a2: false,
         c: false,
@@ -341,12 +347,13 @@ const AddClient = () => {
     }
   }
 
+  // ajout etudiant ++++++++++++++++++++++++++++++++
   return (
     <>
-      <CButton onClick={() => setVisible(!visible)}>Ajouter un Eleve</CButton>
+      <CButton onClick={() => setVisible(!visible)}>AJOUTER</CButton>
       <CModal alignment="center" visible={visible} onClose={() => setVisible(false)}>
         <CModalHeader>
-          <CModalTitle>Ajouter un Eleve</CModalTitle>
+          <CModalTitle>Ajouter un Etudiant</CModalTitle>
         </CModalHeader>
         <CModalBody>
           {/* Other form inputs */}
@@ -409,29 +416,35 @@ const AddClient = () => {
               <option disabled={true} selected={true}>
                 Serie
               </option>
-              <option disabled={select.a1} value="1">
+              <option disabled={select.troncCommun} value="1">
+                Tronc commun
+              </option>
+              <option disabled={select._s} value="2">
+                SCIENTIFIQUE
+              </option>
+              <option disabled={select._l} value="3">
+                LITTERAIRE
+              </option>
+              <option disabled={select.a1} value="4">
                 A1
               </option>
-              <option disabled={select.a2} value="2">
+              <option disabled={select.a2} value="5">
                 A2
               </option>
-              <option disabled={select.c} value="3">
+              <option disabled={select.c} value="6">
                 C
               </option>
-              <option disabled={select.d} value="4">
+              <option disabled={select.d} value="7">
                 D
               </option>
-              <option disabled={select.l} value="5">
+              <option disabled={select.l} value="8">
                 L
               </option>
-              <option disabled={select.s} value="6">
+              <option disabled={select.s} value="9">
                 S
               </option>
-              <option disabled={select.ose} value="7">
+              <option disabled={select.ose} value="10">
                 OSE
-              </option>
-              <option disabled={select.troncCommun} value="8">
-                Tronc commun
               </option>
             </CFormSelect>
             {/* Other form inputs */}
@@ -462,8 +475,9 @@ const AddClient = () => {
   )
 }
 
+// affichage etudiant
 const Eleve = () => {
-  const { clientData, deleteClient } = useClientContext()
+  const { etudiantData, deleteEtudiant } = useClientContext()
 
   const handleDelete = (eleve) => {
     const swalWithBootstrapButtons = Swal.mixin({
@@ -486,7 +500,7 @@ const Eleve = () => {
       .then((result) => {
         if (result.isConfirmed) {
           swalWithBootstrapButtons.fire('Supprimé', 'Suppression avec succès', 'success')
-          deleteClient(eleve.matricule)
+          deleteEtudiant(eleve.matricule)
         } else if (result.dismiss === Swal.DismissReason.cancel) {
           swalWithBootstrapButtons.fire('Annulé', 'Supprission annulé :)', 'error')
         }
@@ -547,7 +561,7 @@ const Eleve = () => {
         <br />
         <br />
         <br />
-        <DataTable columns={columns} data={clientData} fixedHeader pagination dense={false} />
+        <DataTable columns={columns} data={etudiantData} fixedHeader pagination dense={false} />
       </CRow>
     </>
   )
