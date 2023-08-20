@@ -1,37 +1,37 @@
-import React from 'react'
-import {
-  CTable,
-  CTableBody,
-  CTableDataCell,
-  CTableHead,
-  CTableHeaderCell,
-  CTableRow,
-} from '@coreui/react'
+import React, { useEffect } from 'react'
+import { CButton, CRow, CCol, CFormInput } from '@coreui/react'
+import DataTable from 'react-data-table-component'
+import { useMatiereContext } from '../../context/MatiereProvider'
 
 const MatiereSeconde = () => {
+  const { matiere, fetchAllMatiere } = useMatiereContext()
+  useEffect(() => {
+    fetchAllMatiere(1)
+  }, [])
+  const columns = [
+    {
+      name: 'Matiere',
+      selector: (row) => row.matiere.nomMatiere,
+    },
+    {
+      name: 'Coefficient',
+      selector: (row) => row.coeff,
+    },
+  ]
   return (
-    <CTable color="success" striped>
-      <CTableHead>
-        <CTableRow>
-          <CTableHeaderCell scope="col">Matiere</CTableHeaderCell>
-          <CTableHeaderCell scope="col">Coeff</CTableHeaderCell>
-        </CTableRow>
-      </CTableHead>
-      <CTableBody>
-        <CTableRow>
-          <CTableDataCell scope="row">1</CTableDataCell>
-          <CTableDataCell>Seconde</CTableDataCell>
-        </CTableRow>
-        <CTableRow>
-          <CTableDataCell scope="row">2</CTableDataCell>
-          <CTableDataCell>Jacob</CTableDataCell>
-        </CTableRow>
-        <CTableRow>
-          <CTableDataCell scope="row">3</CTableDataCell>
-          <CTableDataCell>Larry the Bird</CTableDataCell>
-        </CTableRow>
-      </CTableBody>
-    </CTable>
+    <>
+      <CRow>
+        <CCol xs={8}></CCol>
+        <CCol xs={4}>
+          <CFormInput type="text" placeholder="Rechercher..." />
+        </CCol>
+        <br />
+        <br />
+        <br />
+        <DataTable columns={columns} data={matiere} fixedHeader pagination dense={false} />
+      </CRow>
+    </>
   )
 }
+
 export default MatiereSeconde

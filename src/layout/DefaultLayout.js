@@ -1,6 +1,8 @@
 import React from 'react'
 import { AppContent, AppSidebar, AppFooter, AppHeader } from '../components/index'
 import { EleveProvider } from '../context/EleveProvider'
+import { MatiereProvider } from '../context/MatiereProvider'
+import { NoteProvider } from '../context/NoteProvider'
 
 const DefaultLayout = () => {
   return (
@@ -10,7 +12,11 @@ const DefaultLayout = () => {
         <AppHeader />
         <div className="body flex-grow-1 px-3">
           <EleveProvider>
-            <AppContent />
+            <MatiereProvider>
+              <NoteProvider>
+                <AppContent />
+              </NoteProvider>
+            </MatiereProvider>
           </EleveProvider>
         </div>
       </div>

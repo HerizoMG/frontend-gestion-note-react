@@ -35,12 +35,12 @@ const _nav = [
         items: [
           {
             component: CNavItem,
-            name: 'Premiere_L',
+            name: 'Premiere L',
             to: '/voitures/premiereL',
           },
           {
             component: CNavItem,
-            name: 'Premiere_S',
+            name: 'Premiere S',
             to: '/voitures/premiereS',
           },
         ],
@@ -52,37 +52,37 @@ const _nav = [
         items: [
           {
             component: CNavItem,
-            name: 'Terminale_A1',
+            name: 'Terminale A1',
             to: '/voitures/terminaleA1',
           },
           {
             component: CNavItem,
-            name: 'Terminale_A2',
+            name: 'Terminale A2',
             to: '/voitures/terminaleA2',
           },
           {
             component: CNavItem,
-            name: 'Terminale_C',
+            name: 'Terminale C',
             to: '/voitures/terminaleC',
           },
           {
             component: CNavItem,
-            name: 'Terminale_D',
+            name: 'Terminale D',
             to: '/voitures/terminaleD',
           },
           {
             component: CNavItem,
-            name: 'Terminale_L',
+            name: 'Terminale L',
             to: '/voitures/terminaleL',
           },
           {
             component: CNavItem,
-            name: 'Terminale_S',
+            name: 'Terminale S',
             to: '/voitures/terminaleS',
           },
           {
             component: CNavItem,
-            name: 'Terminale_OSE',
+            name: 'Terminale OSE',
             to: '/voitures/terminaleOSE',
           },
         ],
@@ -113,10 +113,57 @@ const _nav = [
     ],
   },
   {
-    component: CNavItem,
+    component: CNavGroup,
     name: 'Note',
-    to: '/dashboard',
+    to: '/note',
     icon: <CIcon icon={cilSpeedometer} customClassName="nav-icon" />,
+    items: [
+      {
+        component: CNavItem,
+        name: 'Mathematique',
+        to: '/note/mathematique',
+      },
+      {
+        component: CNavItem,
+        name: 'Physique Chimie',
+        to: '/note/physiqueChimie',
+      },
+      {
+        component: CNavItem,
+        name: 'Français',
+        to: '/note/francais',
+      },
+      {
+        component: CNavItem,
+        name: 'Anglais',
+        to: '/note/anglais',
+      },
+      {
+        component: CNavItem,
+        name: 'Philosophie',
+        to: '/note/philosophie',
+      },
+      {
+        component: CNavItem,
+        name: 'Histoire-Geographie',
+        to: '/note/histoireGeographie',
+      },
+      {
+        component: CNavItem,
+        name: 'SVT',
+        to: '/note/svt',
+      },
+      {
+        component: CNavItem,
+        name: 'EPS',
+        to: '/note/eps',
+      },
+      {
+        component: CNavItem,
+        name: 'Malagasy',
+        to: '/note/malagasy',
+      },
+    ],
   },
 ]
 

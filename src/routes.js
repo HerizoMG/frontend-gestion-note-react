@@ -3,6 +3,15 @@ import { Form } from 'react-router-dom'
 
 const Dashboard = React.lazy(() => import('./views/dashboard/Dashboard'))
 const Eleve = React.lazy(() => import('./views/eleve/eleve'))
+const Mathematique = React.lazy(() => import('./views/note/mathematique'))
+const PhysiqueChimie = React.lazy(() => import('./views/note/physiqueChimie'))
+const Francais = React.lazy(() => import('./views/note/francais'))
+const Anglais = React.lazy(() => import('./views/note/anglais'))
+const Philosophie = React.lazy(() => import('./views/note/philosophie'))
+const Svt = React.lazy(() => import('./views/note/svt'))
+const Eps = React.lazy(() => import('./views/note/eps'))
+const HistoireGeographie = React.lazy(() => import('./views/note/histoireGeographie'))
+const Malagasy = React.lazy(() => import('./views/note/malagasy'))
 const Seconde = React.lazy(() => import('./views/Voiture/Seconde'))
 const Achat = React.lazy(() => import('./views/Achat/Achat'))
 const Premiere_L = React.lazy(() => import('./views/Voiture/Premiere_L'))
@@ -70,6 +79,15 @@ const routes = [
   { path: '/', exact: true, name: 'Home' },
   { path: '/dashboard', name: 'Dashboard', element: ListGroups },
   { path: '/eleve', name: 'Eleve', element: Eleve },
+  { path: '/note/mathematique', name: 'Mathematique', element: Mathematique },
+  { path: '/note/physiqueChimie', name: 'Physique Chimie', element: PhysiqueChimie },
+  { path: '/note/francais', name: 'Français', element: Francais },
+  { path: '/note/anglais', name: 'Anglais', element: Anglais },
+  { path: '/note/philosophie', name: 'Philosophie', element: Philosophie },
+  { path: '/note/histoireGeographie', name: 'Histoire-Geographie', element: HistoireGeographie },
+  { path: '/note/svt', name: 'Svt', element: Svt },
+  { path: '/note/eps', name: 'EPS', element: Eps },
+  { path: '/note/malagasy', name: 'Malagasy', element: Malagasy },
   { path: '/voitures/seconde', name: 'Seconde', element: Seconde },
   { path: '/voitures/premiereL', name: 'Premiere L', element: Premiere_L },
   { path: '/voitures/premiereS', name: 'Premiere S', element: Premiere_S },

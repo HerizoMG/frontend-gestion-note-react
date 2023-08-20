@@ -48,8 +48,11 @@ const VerticallyCentered = ({ row }) => {
       ...prevData,
       [name]: value,
     }))
+    // seconde
     if (value === '1') {
       setSelect({
+        _s: true,
+        _l: true,
         a1: true,
         a2: true,
         c: true,
@@ -60,22 +63,24 @@ const VerticallyCentered = ({ row }) => {
         troncCommun: false,
       })
     }
-
     if (value === '2') {
       setSelect({
+        _s: false,
+        _l: false,
         a1: true,
         a2: true,
         c: true,
         d: true,
-        l: false,
-        s: false,
+        l: true,
+        s: true,
         ose: true,
         troncCommun: true,
       })
     }
-
     if (value === '3') {
       setSelect({
+        _s: true,
+        _l: true,
         a1: false,
         a2: false,
         c: false,
@@ -108,7 +113,7 @@ const VerticallyCentered = ({ row }) => {
       </CButton>
       <CModal alignment="center" visible={visible} onClose={() => setVisible(false)}>
         <CModalHeader>
-          <CModalTitle>Ajouter un Etudiants</CModalTitle>
+          <CModalTitle>Edite Etudiant</CModalTitle>
         </CModalHeader>
         <CModalBody>
           <CFormInput
@@ -170,38 +175,43 @@ const VerticallyCentered = ({ row }) => {
               value={editedValues.idSerie}
               onChange={(e) => handleidPeriodeChange(e)}
             >
-              <option disabled={true}>Serie</option>
-              <option disabled={select.a1} value="1">
+              <option disabled={select.troncCommun} value="1">
+                Tronc commun
+              </option>
+              <option disabled={select._s} value="2">
+                SCIENTIFIQUE
+              </option>
+              <option disabled={select._l} value="3">
+                LITTERAIRE
+              </option>
+              <option disabled={select.a1} value="4">
                 A1
               </option>
-              <option disabled={select.a2} value="2">
+              <option disabled={select.a2} value="5">
                 A2
               </option>
-              <option disabled={select.c} value="3">
+              <option disabled={select.c} value="6">
                 C
               </option>
-              <option disabled={select.d} value="4">
+              <option disabled={select.d} value="7">
                 D
               </option>
-              <option disabled={select.l} value="5">
+              <option disabled={select.l} value="8">
                 L
               </option>
-              <option disabled={select.s} value="6">
+              <option disabled={select.s} value="9">
                 S
               </option>
-              <option disabled={select.ose} value="7">
+              <option disabled={select.ose} value="10">
                 OSE
-              </option>
-              <option disabled={select.troncCommun} value="8">
-                Tronc commun
               </option>
             </CFormSelect>
             <br />
             <CFormSelect
               aria-label="Annee Scolaire"
               name="idPeriode"
-              value={select.idPeriode}
-              onChange={(e) => setEditedValues(e)}
+              value={editedValues.idPeriode}
+              onChange={(e) => setEditedValues({ ...editedValues, idPeriode: e.target.value })}
             >
               <option disabled={true} selected={true}>
                 Annee Scolaire
@@ -413,9 +423,6 @@ const AddClient = () => {
               value={formData.idSerie}
               onChange={(e) => handleidPeriodeChange(e)}
             >
-              <option disabled={true} selected={true}>
-                Serie
-              </option>
               <option disabled={select.troncCommun} value="1">
                 Tronc commun
               </option>

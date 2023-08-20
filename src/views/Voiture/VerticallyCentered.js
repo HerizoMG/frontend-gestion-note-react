@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { useVoitureContext } from '../../context/VoitureProvider'
+import { useVoitureContext } from '../../context/NoteProvider'
 import axios from 'axios'
 import {
   CButton,
