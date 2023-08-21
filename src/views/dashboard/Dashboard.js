@@ -8,6 +8,11 @@ const Dashboard = () => {
   useEffect(() => {
     fetchAllEleveCount()
   }, [])
+  if (etudiantData) {
+    console.log(etudiantData)
+  } else {
+    etudiantData.nomsClasses = []
+  }
   return (
     <CRow>
       <CCol xs={8}>
@@ -36,7 +41,8 @@ const Dashboard = () => {
           <CCardBody>
             <CChartDoughnut
               data={{
-                labels: etudiantData.nomsClasses,
+                // labels: etudiantData.nomsClasses,
+                labels: ['Seconde', 'Premiere', 'Terminale'],
                 datasets: [
                   {
                     backgroundColor: ['#41B883', '#E46651', '#00D8FF', '#DD1B16'],

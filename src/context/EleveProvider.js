@@ -25,6 +25,7 @@ export const EleveProvider = ({ children }) => {
       })
       .catch((error) => {
         console.error('Error fetching data:', error.message)
+        setEtudiantData([])
       })
   }
 
@@ -36,6 +37,7 @@ export const EleveProvider = ({ children }) => {
       })
       .catch((error) => {
         console.error('Error fetching data:', error.message)
+        setEtudiantData([])
       })
   }
 
