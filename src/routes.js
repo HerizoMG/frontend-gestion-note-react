@@ -3,8 +3,8 @@ import { Form } from 'react-router-dom'
 
 const Dashboard = React.lazy(() => import('./views/dashboard/Dashboard'))
 const Eleve = React.lazy(() => import('./views/eleve/eleve'))
-const Mathematique = React.lazy(() => import('./views/note/mathematique'))
 const PhysiqueChimie = React.lazy(() => import('./views/note/physiqueChimie'))
+const Mathematique = React.lazy(() => import('./views/note/mathematique'))
 const Francais = React.lazy(() => import('./views/note/francais'))
 const Anglais = React.lazy(() => import('./views/note/anglais'))
 const Philosophie = React.lazy(() => import('./views/note/philosophie'))
@@ -26,6 +26,9 @@ const Terminale_OSE = React.lazy(() => import('./views/Voiture/Terminale_OSE'))
 const MatiereSeconde = React.lazy(() => import('./views/matiere/matiereSeconde'))
 const MatierePremiere = React.lazy(() => import('./views/matiere/matierePremiere'))
 const MatiereTerminale = React.lazy(() => import('./views/matiere/matiereTerminale'))
+const ResultatSeconde = React.lazy(() => import('./views/resultat/secondeR'))
+const ResultatPremiere = React.lazy(() => import('./views/resultat/premiereR'))
+const ResultatTerminal = React.lazy(() => import('./views/resultat/terminalR'))
 const Colors = React.lazy(() => import('./views/theme/colors/Colors'))
 const Typography = React.lazy(() => import('./views/theme/typography/Typography'))
 
@@ -79,8 +82,8 @@ const routes = [
   { path: '/', exact: true, name: 'Home' },
   { path: '/dashboard', name: 'Dashboard', element: ListGroups },
   { path: '/eleve', name: 'Eleve', element: Eleve },
-  { path: '/note/mathematique', name: 'Mathematique', element: Mathematique },
   { path: '/note/physiqueChimie', name: 'Physique Chimie', element: PhysiqueChimie },
+  { path: '/note/mathematique', name: 'Mathematique', element: Mathematique },
   { path: '/note/francais', name: 'Français', element: Francais },
   { path: '/note/anglais', name: 'Anglais', element: Anglais },
   { path: '/note/philosophie', name: 'Philosophie', element: Philosophie },
@@ -101,6 +104,9 @@ const routes = [
   { path: '/matiere/seconde', name: 'Seconde', element: MatiereSeconde },
   { path: '/matiere/premiere', name: 'Premiere', element: MatierePremiere },
   { path: '/matiere/terminale', name: 'Terminale', element: MatiereTerminale },
+  { path: '/resultat/secondeR', name: 'Seconde', element: ResultatSeconde },
+  { path: '/resultat/premiereR', name: 'Premiere', element: ResultatPremiere },
+  { path: '/resultat/terminalR', name: 'Terminale', element: ResultatTerminal },
   { path: '/theme', name: 'Theme', element: Colors, exact: true },
   { path: '/achat', name: 'Achat', element: Achat },
   { path: '/theme/colors', name: 'Colors', element: Colors },

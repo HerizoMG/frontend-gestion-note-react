@@ -9,9 +9,9 @@ const ClientContext = createContext()
 // eslint-disable-next-line react/prop-types
 export const MatiereProvider = ({ children }) => {
   const [matiere, setMatiere] = useState([])
-  const fetchAllMatiere = (id) => {
+  const fetchAllMatiere = (idSerie) => {
     axios
-      .get(`https://localhost:7076/Matiere/matiere?id=${id}`)
+      .get(`https://localhost:7076/Matiere/matiere?idSerie=${idSerie}`)
       .then((response) => {
         setMatiere(response.data)
       })

@@ -15,7 +15,8 @@ import Swal from 'sweetalert2'
 import DataTable from 'react-data-table-component'
 import PropTypes from 'prop-types'
 import { useClientContext } from '../../context/EleveProvider'
-const VerticallyCentered = ({ row }) => {
+const VerticallyCentered = ({ row, idClasse }) => {
+  console.log(idClasse)
   const [visible, setVisible] = useState(false)
   const [editedValues, setEditedValues] = useState({
     matricule: row.matricule,
@@ -23,7 +24,7 @@ const VerticallyCentered = ({ row }) => {
     prenoms: row.prenoms,
     adresse: row.adresse,
     email: row.email,
-    idClasse: row.idClasse,
+    idClasse: idClasse,
     idPeriode: row.idPeriode,
     idSerie: row.idSerie,
   })
@@ -39,6 +40,7 @@ const VerticallyCentered = ({ row }) => {
     troncCommun: false,
   })
   const updateClientData = () => {
+    setVisible(false)
     updateEtudiant(editedValues.matricule.toString(), editedValues)
   }
 
@@ -50,6 +52,10 @@ const VerticallyCentered = ({ row }) => {
     }))
     // seconde
     if (value === '1') {
+      setEditedValues((prevData) => ({
+        ...prevData,
+        idSerie: value,
+      }))
       setSelect({
         _s: true,
         _l: true,
@@ -64,6 +70,10 @@ const VerticallyCentered = ({ row }) => {
       })
     }
     if (value === '2') {
+      setEditedValues((prevData) => ({
+        ...prevData,
+        idSerie: 2,
+      }))
       setSelect({
         _s: false,
         _l: false,
@@ -78,6 +88,10 @@ const VerticallyCentered = ({ row }) => {
       })
     }
     if (value === '3') {
+      setEditedValues((prevData) => ({
+        ...prevData,
+        idSerie: 4,
+      }))
       setSelect({
         _s: true,
         _l: true,
@@ -247,6 +261,7 @@ VerticallyCentered.propTypes = {
     niveau: PropTypes.string.isRequired,
     nomSerie: PropTypes.string.isRequired,
   }).isRequired,
+  idClasse: PropTypes.shape(),
 }
 
 const AddClient = () => {
@@ -291,6 +306,7 @@ const AddClient = () => {
     }))
   }
   const addClientData = () => {
+    setVisible(false)
     addEtudiant(formData)
     // Optionally, you can reset the form after adding a client
     setFormData({
@@ -303,7 +319,6 @@ const AddClient = () => {
       idPeriode: 1,
       idSerie: 1,
     })
-    setVisible(false)
   }
   const onChangeNiveau = (event) => {
     const { name, value } = event.target
@@ -312,6 +327,10 @@ const AddClient = () => {
       [name]: value,
     }))
     if (value === '1') {
+      setFormData((prevData) => ({
+        ...prevData,
+        idSerie: 1,
+      }))
       setSelect({
         _s: true,
         _l: true,
@@ -327,6 +346,10 @@ const AddClient = () => {
     }
 
     if (value === '2') {
+      setFormData((prevData) => ({
+        ...prevData,
+        idSerie: 2,
+      }))
       setSelect({
         _s: false,
         _l: false,
@@ -342,6 +365,10 @@ const AddClient = () => {
     }
 
     if (value === '3') {
+      setFormData((prevData) => ({
+        ...prevData,
+        idSerie: 4,
+      }))
       setSelect({
         _s: true,
         _l: true,
@@ -539,7 +566,7 @@ const Eleve = () => {
       name: 'Actions',
       cell: (row) => (
         <div>
-          <VerticallyCentered row={row} />
+          <VerticallyCentered row={row} idClasse={row.serie.idClasse} />
           <CButton color="none" onClick={() => handleDelete(row)}>
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
               <g fill="none">

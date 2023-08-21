@@ -1,13 +1,14 @@
-import React, { useEffect } from 'react'
-import { CButton, CRow, CCol, CFormInput } from '@coreui/react'
+import React, { useEffect, useState } from 'react'
+import { CButton, CRow, CCol, CFormInput, CFormSelect } from '@coreui/react'
 import DataTable from 'react-data-table-component'
 import { useMatiereContext } from '../../context/MatiereProvider'
 
 const MatierePremiere = () => {
+  const [serie, setSerie] = useState(2)
   const { matiere, fetchAllMatiere } = useMatiereContext()
   useEffect(() => {
-    fetchAllMatiere(2)
-  }, [])
+    fetchAllMatiere(serie)
+  }, [serie])
   const columns = [
     {
       name: 'Matiere',
@@ -21,7 +22,21 @@ const MatierePremiere = () => {
   return (
     <>
       <CRow>
-        <CCol xs={8}></CCol>
+        <CCol xs={4}>
+          <CFormSelect
+            aria-label="Seconde"
+            name="idClasse"
+            value={serie}
+            onChange={(e) => setSerie(e.target.value)}
+          >
+            <option disabled={true} selected={true}>
+              parcours
+            </option>
+            <option value="2">SCIENTIFIQUE</option>
+            <option value="3">LITTERAIRE</option>
+          </CFormSelect>
+        </CCol>
+        <CCol xs={4}></CCol>
         <CCol xs={4}>
           <CFormInput type="text" placeholder="Rechercher..." />
         </CCol>

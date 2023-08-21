@@ -3,6 +3,7 @@ import CIcon from '@coreui/icons-react'
 import { cilCart, cilPeople, cilPuzzle, cilSpeedometer } from '@coreui/icons'
 import { CNavGroup, CNavItem } from '@coreui/react'
 import { cilCarAlt } from '@coreui/icons/js/free/cil-car-alt'
+import { cilSchool } from '@coreui/icons/js/free'
 
 const _nav = [
   {
@@ -162,6 +163,29 @@ const _nav = [
         component: CNavItem,
         name: 'Malagasy',
         to: '/note/malagasy',
+      },
+    ],
+  },
+  {
+    component: CNavGroup,
+    name: 'Resultat',
+    to: '/resultat',
+    icon: <CIcon icon={cilSchool} customClassName="nav-icon" />,
+    items: [
+      {
+        component: CNavItem,
+        name: 'Seconde',
+        to: '/resultat/secondeR',
+      },
+      {
+        component: CNavItem,
+        name: 'Premiere',
+        to: '/resultat/premiereR',
+      },
+      {
+        component: CNavItem,
+        name: 'Terminale',
+        to: '/resultat/terminalR',
       },
     ],
   },

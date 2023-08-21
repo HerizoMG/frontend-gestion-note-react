@@ -8,6 +8,7 @@ const ClientContext = createContext()
 // eslint-disable-next-line react/prop-types
 export const NoteProvider = ({ children }) => {
   const [noteData, setNoteData] = useState([])
+  const [moyenneData, setMoyenneData] = useState([])
   const fetchAllNote = (idMatiere) => {
     axios
       .get(`https://localhost:7076/Note/idMatiere?idMatiere=${idMatiere}`)
@@ -18,6 +19,44 @@ export const NoteProvider = ({ children }) => {
         console.error('Error fetching data:', error.message)
       })
   }
+
+  const fetchAllNoteByMatiere = (nomMatiere, idSerie) => {
+    axios
+      .get(`https://localhost:7076/Note/${nomMatiere}?idSerie=${idSerie}`)
+      .then((response) => {
+        setNoteData(response.data)
+      })
+      .catch((error) => {
+        console.error('Error fetching data:', error.message)
+      })
+  }
+
+  const fetchAllMoyenneBySerieAndEtudiant = (idSerie, idTrimestre) => {
+    axios
+      .get(`https://localhost:7076/Note/series/${idSerie}/trimestres/${idTrimestre}`)
+      .then((response) => {
+        setMoyenneData(response.data)
+      })
+      .catch((error) => {
+        console.error('Error fetching data:', error.message)
+        setMoyenneData([])
+      })
+  }
+
+  const fetchAllNoteBySerieByMatiereByTrimstre = (idMatiere, idSerie, idTrimestre) => {
+    axios
+      .get(
+        `https://localhost:7076/Note/matieres/${idMatiere}/series/${idSerie}/periodes/${idTrimestre}`,
+      )
+      .then((response) => {
+        setNoteData(response.data)
+      })
+      .catch((error) => {
+        console.error('Error fetching data:', error.message)
+        setNoteData([])
+      })
+  }
+
   const updateNote = (id, editedValues) => {
     axios
       .put(`https://localhost:7076/Note/update?id=${id}`, editedValues)
@@ -61,10 +100,14 @@ export const NoteProvider = ({ children }) => {
     <ClientContext.Provider
       value={{
         noteData,
+        moyenneData,
         updateNote,
         addNote,
         deleteNote,
         fetchAllNote,
+        fetchAllNoteByMatiere,
+        fetchAllMoyenneBySerieAndEtudiant,
+        fetchAllNoteBySerieByMatiereByTrimstre,
       }}
     >
       {children}

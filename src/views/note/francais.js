@@ -16,23 +16,23 @@ import PropTypes from 'prop-types'
 import { useNoteContext } from '../../context/NoteProvider'
 import { useClientContext } from '../../context/EleveProvider'
 import Swal from 'sweetalert2'
-const VerticallyCentered = ({ row }) => {
+const ButtonUpdateMATHS = ({ row6, idNote }) => {
   const [visible, setVisible] = useState(false)
-  const [editedValues, setEditedValues] = useState({
-    idNote: row.idNote,
-    note: row.note,
+  const [editedValuesMath, setEditedValuesMath] = useState({
+    idNote: idNote,
+    note: row6.note,
     idMatiere: 1,
-    matricule: row.matricule,
+    matricule: row6.matricule,
     idPeriode: 1,
   })
   const { updateNote } = useNoteContext()
   const updateNoteData = () => {
-    updateNote(editedValues.idNote, editedValues)
+    updateNote(editedValuesMath.idNote, editedValuesMath)
   }
   // edit note
   return (
     <>
-      <CButton color="none" onClick={() => setVisible(!visible)}>
+      <CButton key={editedValuesMath.idNote} color="none" onClick={() => setVisible(!visible)}>
         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 16 16">
           <path
             fill="currentColor"
@@ -48,8 +48,8 @@ const VerticallyCentered = ({ row }) => {
           <CFormInput
             type="text"
             label="Note"
-            value={editedValues.note}
-            onChange={(e) => setEditedValues({ ...editedValues, note: e.target.value })}
+            value={editedValuesMath.note}
+            onChange={(e) => setEditedValuesMath({ ...editedValuesMath, note: e.target.value })}
           />
           <br />
         </CModalBody>
@@ -66,24 +66,37 @@ const VerticallyCentered = ({ row }) => {
   )
 }
 
-VerticallyCentered.propTypes = {
-  row: PropTypes.shape({
+ButtonUpdateMATHS.propTypes = {
+  row6: PropTypes.shape({
     note: PropTypes.string.isRequired,
     idNote: PropTypes.string.isRequired,
     matricule: PropTypes.string.isRequired,
     idPeriode: PropTypes.string.isRequired,
   }).isRequired,
+  idNote: PropTypes.shape(),
 }
 
 const AddNote = () => {
   const [visible, setVisible] = useState(false)
+  const [serie, setSerie] = useState(1)
+  const [classe, setClasse] = useState(1)
+  const [trimestre, setTrimestre] = useState(1)
   const [formData, setFormData] = useState({
     matricule: '001',
     note: '',
-    idMatiere: 3,
-    idPeriode: 1,
+    idMatiere: 1,
+    idPeriode: trimestre,
   })
-
+  const [select, setSelect] = useState({
+    a1: true,
+    a2: true,
+    c: true,
+    d: true,
+    l: true,
+    s: true,
+    ose: true,
+    troncCommun: false,
+  })
   const { addNote } = useNoteContext()
   const { etudiantData } = useClientContext()
 
@@ -107,10 +120,68 @@ const AddNote = () => {
     setFormData({
       matricule: '001',
       note: '',
-      idMatiere: 3,
+      idMatiere: 1,
       idPeriode: 1,
     })
     setVisible(false)
+  }
+
+  const handleSerieChange = (event) => {
+    setSerie(event.target.value)
+  }
+
+  const handleTrimestreChange = (event) => {
+    setTrimestre(event.target.value)
+  }
+  const onChangeNiveau = (event) => {
+    const { name, value } = event.target
+    setClasse(value)
+    // seconde
+    if (value === '1') {
+      setSerie(1)
+      setSelect({
+        _s: true,
+        _l: true,
+        a1: true,
+        a2: true,
+        c: true,
+        d: true,
+        l: true,
+        s: true,
+        ose: true,
+        troncCommun: false,
+      })
+    }
+    if (value === '2') {
+      setSerie(2)
+      setSelect({
+        _s: false,
+        _l: false,
+        a1: true,
+        a2: true,
+        c: true,
+        d: true,
+        l: true,
+        s: true,
+        ose: true,
+        troncCommun: true,
+      })
+    }
+    if (value === '3') {
+      setSerie(4)
+      setSelect({
+        _s: true,
+        _l: true,
+        a1: false,
+        a2: false,
+        c: false,
+        d: false,
+        l: false,
+        s: false,
+        ose: false,
+        troncCommun: true,
+      })
+    }
   }
 
   // ajout note ++++++++++++++++++++++++++++++++
@@ -123,6 +194,89 @@ const AddNote = () => {
         </CModalHeader>
         <CModalBody>
           {/* Other form inputs */}
+          <CFormSelect
+            aria-label="TRIMESTRE"
+            name="idPeriode"
+            value={trimestre}
+            onChange={(e) => handleTrimestreChange(e)}
+          >
+            <option disabled={true} selected={true}>
+              Seconde
+            </option>
+            <option value="1">TRIMESTRE I</option>
+            <option value="2">TRIMESTRE II</option>
+            <option value="3">TRIMESTRE III</option>
+          </CFormSelect>
+          <br />
+          <CCol>
+            {/* Other form inputs */}
+            <CFormSelect
+              aria-label="Seconde"
+              name="idClasse"
+              value={setFormData.idClasse}
+              onChange={(e) => onChangeNiveau(e)}
+            >
+              <option disabled={true} selected={true}>
+                Seconde
+              </option>
+              <option value="1">Seconde</option>
+              <option value="2">Premiere</option>
+              <option value="3">Terminale</option>
+            </CFormSelect>
+            {/* Other form inputs */}
+            <br />
+            <CFormSelect
+              className="series"
+              aria-label="Series"
+              name="idSerie"
+              value={serie}
+              onChange={(e) => handleSerieChange(e)}
+            >
+              <option disabled={select.troncCommun} value="1">
+                Tronc commun
+              </option>
+              <option disabled={select._s} value="2">
+                SCIENTIFIQUE
+              </option>
+              <option disabled={select._l} value="3">
+                LITTERAIRE
+              </option>
+              <option disabled={select.a1} value="4">
+                A1
+              </option>
+              <option disabled={select.a2} value="5">
+                A2
+              </option>
+              <option disabled={select.c} value="6">
+                C
+              </option>
+              <option disabled={select.d} value="7">
+                D
+              </option>
+              <option disabled={select.l} value="8">
+                L
+              </option>
+              <option disabled={select.s} value="9">
+                S
+              </option>
+              <option disabled={select.ose} value="10">
+                OSE
+              </option>
+            </CFormSelect>
+            <br />
+            <CFormSelect
+              aria-label="Annee Scolaire"
+              name="idPeriode"
+              value={formData.idPeriode}
+              onChange={(e) => setFormData({ ...formData, idPeriode: e.target.value })}
+            >
+              <option disabled={true} selected={true}>
+                Annee Scolaire
+              </option>
+              <option value="1">2022-2023</option>
+            </CFormSelect>
+          </CCol>
+          <br />
           <CFormSelect
             aria-label="Etudiant"
             name="matricule"
@@ -163,11 +317,81 @@ const AddNote = () => {
 }
 
 // affichage etudiant
-const Francais = () => {
-  const { noteData, deleteNote, fetchAllNote } = useNoteContext()
+const Francais = (e) => {
+  const { noteData, deleteNote, fetchAllNoteBySerieByMatiereByTrimstre } = useNoteContext()
+  // classe seconde = 1
+  const [serie, setSerie] = useState(1)
+  const [classe, setClasse] = useState(1)
+  const [trimestre, setTrimestre] = useState(1)
+  const [select, setSelect] = useState({
+    a1: true,
+    a2: true,
+    c: true,
+    d: true,
+    l: true,
+    s: true,
+    ose: true,
+    troncCommun: false,
+  })
   useEffect(() => {
-    fetchAllNote(3)
-  }, [])
+    fetchAllNoteBySerieByMatiereByTrimstre(3, serie, trimestre)
+  }, [serie, classe, trimestre])
+  const handleSerieChange = (event) => {
+    setSerie(event.target.value)
+  }
+  const handleTrimestreChange = (event) => {
+    setTrimestre(event.target.value)
+  }
+  const onChangeNiveau = (event) => {
+    const { name, value } = event.target
+    setClasse(value)
+    // seconde
+    if (value === '1') {
+      setSerie(1)
+      setSelect({
+        _s: true,
+        _l: true,
+        a1: true,
+        a2: true,
+        c: true,
+        d: true,
+        l: true,
+        s: true,
+        ose: true,
+        troncCommun: false,
+      })
+    }
+    if (value === '2') {
+      setSerie(2)
+      setSelect({
+        _s: false,
+        _l: false,
+        a1: true,
+        a2: true,
+        c: true,
+        d: true,
+        l: true,
+        s: true,
+        ose: true,
+        troncCommun: true,
+      })
+    }
+    if (value === '3') {
+      setSerie(4)
+      setSelect({
+        _s: true,
+        _l: true,
+        a1: false,
+        a2: false,
+        c: false,
+        d: false,
+        l: false,
+        s: false,
+        ose: false,
+        troncCommun: true,
+      })
+    }
+  }
   const handleDelete = (note) => {
     const swalWithBootstrapButtons = Swal.mixin({
       customClass: {
@@ -225,7 +449,7 @@ const Francais = () => {
       name: 'Actions',
       cell: (row) => (
         <div>
-          <VerticallyCentered row={row} />
+          <ButtonUpdateMATHS key={row.idNote} row6={row} idNote={row.idNote} />
           <CButton color="none" onClick={() => handleDelete(row)}>
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
               <g fill="none">
@@ -245,14 +469,90 @@ const Francais = () => {
   return (
     <>
       <CRow>
-        <CCol xs={8}>
+        <CCol xs={3}>
           <AddNote />
         </CCol>
-        <CCol xs={4}></CCol>
+        <CCol xs={3}>
+          <CFormSelect
+            aria-label="Seconde"
+            name="idClasse"
+            value={classe}
+            onChange={(e) => onChangeNiveau(e)}
+          >
+            <option disabled={true} selected={true}>
+              Seconde
+            </option>
+            <option value="1">Seconde</option>
+            <option value="2">Premiere</option>
+            <option value="3">Terminale</option>
+          </CFormSelect>
+        </CCol>
+        <CCol xs={3}>
+          <CFormSelect
+            className="series"
+            aria-label="Series"
+            name="idSerie"
+            value={serie}
+            onChange={(e) => handleSerieChange(e)}
+          >
+            <option disabled={select.troncCommun} value="1">
+              Tronc commun
+            </option>
+            <option disabled={select._s} value="2">
+              SCIENTIFIQUE
+            </option>
+            <option disabled={select._l} value="3">
+              LITTERAIRE
+            </option>
+            <option disabled={select.a1} value="4">
+              A1
+            </option>
+            <option disabled={select.a2} value="5">
+              A2
+            </option>
+            <option disabled={select.c} value="6">
+              C
+            </option>
+            <option disabled={select.d} value="7">
+              D
+            </option>
+            <option disabled={select.l} value="8">
+              L
+            </option>
+            <option disabled={select.s} value="9">
+              S
+            </option>
+            <option disabled={select.ose} value="10">
+              OSE
+            </option>
+          </CFormSelect>
+        </CCol>
+        <CCol xs={3}>
+          <CFormSelect
+            aria-label="TRIMESTRE"
+            name="idPeriode"
+            value={trimestre}
+            onChange={(e) => handleTrimestreChange(e)}
+          >
+            <option disabled={true} selected={true}>
+              Seconde
+            </option>
+            <option value="1">TRIMESTRE I</option>
+            <option value="2">TRIMESTRE II</option>
+            <option value="3">TRIMESTRE III</option>
+          </CFormSelect>
+        </CCol>
         <br />
         <br />
         <br />
-        <DataTable columns={columns} data={noteData} fixedHeader pagination dense={false} />
+        <DataTable
+          columns={columns}
+          title="Français"
+          data={noteData}
+          fixedHeader
+          pagination
+          dense={false}
+        />
       </CRow>
     </>
   )
