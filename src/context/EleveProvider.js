@@ -28,6 +28,17 @@ export const EleveProvider = ({ children }) => {
       })
   }
 
+  const fetchAllEleveCount = () => {
+    axios
+      .get('https://localhost:7076/Etudiant/classes/etudiants')
+      .then((response) => {
+        setEtudiantData(response.data)
+      })
+      .catch((error) => {
+        console.error('Error fetching data:', error.message)
+      })
+  }
+
   const fetchAllEleveSeconde = () => {
     axios
       .get('https://localhost:7076/Etudiant/seconde')
@@ -75,6 +86,20 @@ export const EleveProvider = ({ children }) => {
         console.error('Error fetching data:', error.message)
       })
   }
+
+  const fetchAllEleveEachClass = (idSerie) => {
+    axios
+      .get(`https://localhost:7076/Etudiant/series/${idSerie}/etudiants`)
+      .then((response) => {
+        setEtudiantData(response.data)
+        setRecords(response.data)
+      })
+      .catch((error) => {
+        console.error('Error fetching data:', error.message)
+        setEtudiantData([])
+      })
+  }
+
   const updateEtudiant = (id, editedValues) => {
     axios
       .put(`https://localhost:7076/Etudiant/update?id=${id}`, editedValues)
@@ -128,6 +153,9 @@ export const EleveProvider = ({ children }) => {
         updateEtudiant,
         deleteEtudiant,
         addEtudiant,
+        fetchAllEleveEachClass,
+        fetchAllEleveCount,
+        fetchAllEleve,
       }}
     >
       {children}

@@ -81,10 +81,15 @@ const AddNote = () => {
   const [serie, setSerie] = useState(1)
   const [classe, setClasse] = useState(1)
   const [trimestre, setTrimestre] = useState(1)
+  const { addNote } = useNoteContext()
+  const { fetchAllEleveEachClass, etudiantData } = useClientContext()
+  useEffect(() => {
+    fetchAllEleveEachClass(serie)
+  }, [serie, classe])
   const [formData, setFormData] = useState({
-    matricule: '001',
+    matricule: '',
     note: '',
-    idMatiere: 1,
+    idMatiere: 5,
     idPeriode: trimestre,
   })
   const [select, setSelect] = useState({
@@ -97,9 +102,6 @@ const AddNote = () => {
     ose: true,
     troncCommun: false,
   })
-  const { addNote } = useNoteContext()
-  const { etudiantData } = useClientContext()
-
   const handleidPeriodeChange = (event) => {
     const { name, value } = event.target
     setFormData((prevData) => ({
@@ -118,9 +120,9 @@ const AddNote = () => {
     addNote(formData)
     // Optionally, you can reset the form after adding a client
     setFormData({
-      matricule: '001',
+      matricule: '',
       note: '',
-      idMatiere: 1,
+      idMatiere: 5,
       idPeriode: 1,
     })
     setVisible(false)
@@ -132,6 +134,11 @@ const AddNote = () => {
 
   const handleTrimestreChange = (event) => {
     setTrimestre(event.target.value)
+    const { name, value } = event.target
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }))
   }
   const onChangeNiveau = (event) => {
     const { name, value } = event.target
@@ -197,11 +204,11 @@ const AddNote = () => {
           <CFormSelect
             aria-label="TRIMESTRE"
             name="idPeriode"
-            value={trimestre}
+            value={setFormData.idPeriode}
             onChange={(e) => handleTrimestreChange(e)}
           >
             <option disabled={true} selected={true}>
-              Seconde
+              Trimestre
             </option>
             <option value="1">TRIMESTRE I</option>
             <option value="2">TRIMESTRE II</option>
@@ -217,7 +224,7 @@ const AddNote = () => {
               onChange={(e) => onChangeNiveau(e)}
             >
               <option disabled={true} selected={true}>
-                Seconde
+                Classe
               </option>
               <option value="1">Seconde</option>
               <option value="2">Premiere</option>
@@ -283,11 +290,9 @@ const AddNote = () => {
             value={formData.matricule}
             onChange={(e) => setFormData({ ...formData, matricule: e.target.value })}
           >
-            <option disabled={true} selected={true}>
-              Etudiant
-            </option>
+            <option selected={true}>Etudiant</option>
             {etudiantData.map((item, i) => (
-              <option key={i} value={item.matricule}>
+              <option key={item.matricule} value={item.matricule}>
                 {item.nom + ' ' + item.prenoms}
               </option>
             ))}

@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import {
   CButton,
   CCol,
@@ -511,8 +511,10 @@ const AddClient = () => {
 
 // affichage etudiant
 const Eleve = () => {
-  const { etudiantData, deleteEtudiant } = useClientContext()
-
+  const { etudiantData, fetchAllEleve, deleteEtudiant } = useClientContext()
+  useEffect(() => {
+    fetchAllEleve()
+  }, [])
   const handleDelete = (eleve) => {
     const swalWithBootstrapButtons = Swal.mixin({
       customClass: {
